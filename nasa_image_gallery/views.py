@@ -15,6 +15,12 @@ def getAllImagesAndFavouriteList(request):
     images = []
     favourite_list = []
 
+    if request.user.is_authenticated:
+        user = request.user
+        favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(user)
+    else:
+        favourite_list = []
+
     return images, favourite_list
 
 # función principal de la galería.
