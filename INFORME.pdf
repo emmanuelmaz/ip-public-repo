@@ -1,0 +1,36 @@
+En este informe, explicaré el trabajo práctico de Introducción a la Programación, sobre la página web de la NASA. Donde también veremos las funciones que fueron implementadas y modificadas a lo largo de este trabajo.
+
+En primer lugar, le agregué la siguiente linea a la funcion "home":
+
+images=services_nasa_image_gallery.getAllImages()
+
+Cuya función es hacer aparecer en la pagina principal todas las imagenes que vienen por defecto.
+
+En segundo lugar, se implementó el suguiente condicional a la funcion "getAllImagesAndFavouriteList":
+
+if request.user.is_authenticated:
+    user = request.user
+    favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(user)
+else:
+    favourite_list = []*
+
+
+Ese es el condicional implementado, el cual verifica si el usuario está autenticado, y devuelve una lista de las imagenes favoritas de dicho usuario llamando a la función "getAllFavouritesByUser" utilizando al usuario como parametro.
+
+En tercer lugar, se agregó lo siguiente a la funcion "search":
+
+if search_msg !='':
+        images = services_nasa_image_gallery.getAllImages(search_msg)
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
+
+Esto hace que si el usuario busca una palabra, la página busque las tarjetas de imagenes utilizando la palabra utilizada por el usuario como parametro.
+
+Por ultimo, dentro de la ruta "nasa_image_gallery>layers>services>services_nasa_image_gallery" implemetamos el siguiente ciclo dentro de la funcion "getAllImages":
+
+for object in json_collection:
+        nasa_card=mapper.fromRequestIntoNASACard(object)
+        images.append(nasa_card)
+
+Donde se busca y ordena las imagenes por defecto dentro de la lista json_collection y lo transforma en una NASACard, que luego es agregada a la lista de "images".
+
+

@@ -43,7 +43,7 @@ def search(request):
     # si el usuario no ingresó texto alguno, debe refrescar la página; caso contrario, debe filtrar aquellas imágenes que posean el texto de búsqueda.
     if search_msg !='':
         images = services_nasa_image_gallery.getAllImages(search_msg)
-        return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
 
 
 
